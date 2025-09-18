@@ -27,8 +27,8 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       handleError(error, request);
     },
     async onRequest(config) {
-      const Authorization = getAuthorization();
-      Object.assign(config.headers, { Authorization });
+      const Token = getAuthorization();
+      Object.assign(config.headers, { Token });
 
       return config;
     },

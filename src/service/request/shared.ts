@@ -7,9 +7,8 @@ import type { RequestInstanceState } from './type';
 
 export function getAuthorization() {
   const token = localStg.get('token');
-  const Authorization = token ? `Bearer ${token}` : null;
 
-  return Authorization;
+  return token || null;
 }
 
 /**

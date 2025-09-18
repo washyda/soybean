@@ -26,7 +26,7 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
   return request<Api.SystemManage.UserList>({
     method: 'get',
     params,
-    url: '/systemManage/getUserList'
+    url: '/user/list'
   });
 }
 

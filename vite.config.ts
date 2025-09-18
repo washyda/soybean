@@ -95,7 +95,7 @@ export default defineConfig(configEnv => {
     },
     server: {
       host: '0.0.0.0',
-      open: true,
+      open: false,
       port: 9527,
       proxy: createViteProxy(viteEnv, enableProxy),
       warmup: {

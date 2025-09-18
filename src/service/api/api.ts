@@ -9,7 +9,7 @@ export const api = [
           userName
         },
         method: 'post',
-        url: '/auth/login'
+        url: '/user/login'
       })
   }
 ];
