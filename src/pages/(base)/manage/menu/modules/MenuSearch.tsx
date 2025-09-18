@@ -4,7 +4,7 @@ import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { useFormRules } from '@/features/form';
 import { translateOptions } from '@/utils/common';
 
-const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchParams }) => {
+const MenuSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchParams }) => {
   const { t } = useTranslation();
   const {
     patternRules: { email, phone }
@@ -30,10 +30,10 @@ const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
         >
           <Form.Item
             className="m-0"
-            label={t('page.manage.user.querySearch')}
+            label={t('page.manage.user.userName')}
             name="querySearch"
           >
-            <Input placeholder={t('page.manage.user.form.querySearch')} />
+            <Input placeholder={t('page.manage.user.form.userName')} />
           </Form.Item>
         </Col>
 
@@ -52,6 +52,20 @@ const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
               options={translateOptions(userGenderOptions)}
               placeholder={t('page.manage.user.form.userGender')}
             />
+          </Form.Item>
+        </Col>
+
+        <Col
+          lg={6}
+          md={12}
+          span={24}
+        >
+          <Form.Item
+            className="m-0"
+            label={t('page.manage.user.nickName')}
+            name="nickName"
+          >
+            <Input placeholder={t('page.manage.user.form.nickName')} />
           </Form.Item>
         </Col>
 
@@ -93,7 +107,7 @@ const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
           <Form.Item
             className="m-0"
             label={t('page.manage.user.userStatus')}
-            name="status"
+            name="userStatus"
           >
             <Select
               allowClear
@@ -104,8 +118,8 @@ const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
         </Col>
 
         <Col
-          lg={18}
-          span={36}
+          lg={12}
+          span={24}
         >
           <Form.Item className="m-0">
             <Flex
@@ -135,4 +149,4 @@ const UserSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
   );
 });
 
-export default UserSearch;
+export default MenuSearch;

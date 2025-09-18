@@ -191,6 +191,10 @@ declare namespace App {
     interface Menu {
       /** The menu children */
       children?: Menu[];
+      /** The danger Style */
+      danger?: boolean;
+      disabled?: boolean;
+      extra?: React.ReactNode;
       /** The menu i18n key */
       i18nKey?: I18n.I18nKey | null;
       /** The menu icon */
@@ -205,6 +209,7 @@ declare namespace App {
       label: React.ReactNode;
       /** The tooltip title */
       title?: string;
+      [Key: `data-${string}`]: unknown;
     }
 
     type Breadcrumb = Omit<Menu, 'children'> & {
@@ -567,12 +572,14 @@ declare namespace App {
               buttonAuth: string;
               editRole: string;
               form: {
+                querySearch: string;
                 roleCode: string;
                 roleDesc: string;
                 roleName: string;
                 roleStatus: string;
               };
               menuAuth: string;
+              querySearch: string;
               roleCode: string;
               roleDesc: string;
               roleName: string;
@@ -588,6 +595,7 @@ declare namespace App {
               editUser: string;
               form: {
                 nickName: string;
+                querySearch: string;
                 userEmail: string;
                 userGender: string;
                 userName: string;
@@ -598,8 +606,10 @@ declare namespace App {
               gender: {
                 female: string;
                 male: string;
+                unknown: string;
               };
               nickName: string;
+              querySearch: string;
               title: string;
               userEmail: string;
               userGender: string;

@@ -8,8 +8,9 @@ const LineChart = () => {
   const { domRef, updateOptions } = useEcharts(() => ({
     grid: {
       bottom: '3%',
-      containLabel: true,
       left: '3%',
+      outerBoundsContain: 'axisLabel',
+      outerBoundsMode: 'same',
       right: '4%'
     },
     legend: {

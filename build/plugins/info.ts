@@ -4,7 +4,7 @@ import type { Plugin } from 'vite';
 
 import { themeSettings } from '../../src/theme/settings';
 
-const welcomeMessage = gradientString(themeSettings.themeColor, 'magenta').multiline(
+const welcomeMessage = gradientString([themeSettings.themeColor, 'magenta']).multiline(
   `您好! 欢迎使用 react-soybean 开源项目\n我们为您精心准备了精美的保姆级文档\nhttps://react-docs.soybeanjs.cn/`
 );
 

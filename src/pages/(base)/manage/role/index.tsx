@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { enableStatusRecord } from '@/constants/business';
 import { ATG_MAP } from '@/constants/common';
 import { TableHeaderOperation, useTable, useTableOperate, useTableScroll } from '@/features/table';
-import { fetchGetRoleList } from '@/service/api';
+import { fetchAddRole, fetchDeleteRole, fetchEditRole, fetchGetRoleList } from '@/service/api';
 
 import RoleSearch from './modules/role-search';
 
@@ -22,16 +22,15 @@ const Role = () => {
     apiFn: fetchGetRoleList,
     apiParams: {
       current: 1,
-      roleCode: undefined,
-      roleName: undefined,
+      querySearch: undefined,
       size: 10,
       status: undefined
     },
     columns: () => [
       {
         align: 'center',
-        dataIndex: 'index',
-        key: 'index',
+        dataIndex: 'id',
+        key: 'id',
         title: t('common.index'),
         width: 64
       },
@@ -50,19 +49,23 @@ const Role = () => {
         title: t('page.manage.role.roleCode')
       },
       {
-        dataIndex: 'roleDesc',
-        key: 'roleDesc',
-        minWidth: 120,
+        dataIndex: 'description',
+        ellipsis: true,
+        key: 'description',
+        minWidth: 160,
+        render: (_, record) => {
+          if (record.description === null) {
+            return <ATag color={ATG_MAP[record.status]}>暂无描述</ATag>;
+          }
+          return <div>{record.description}</div>;
+        },
         title: t('page.manage.role.roleDesc')
       },
       {
         align: 'center',
-        dataIndex: 'status',
-        key: 'status',
+        dataIndex: 'createTime',
+        key: 'createTime',
         render: (_, record) => {
-          if (record.status === null) {
-            return null;
-          }
           const label = t(enableStatusRecord[record.status]);
           return <ATag color={ATG_MAP[record.status]}>{label}</ATag>;
         },
@@ -119,24 +122,23 @@ const Role = () => {
   } = useTableOperate(data, run, async (res, type) => {
     if (type === 'add') {
       // add request 调用新增的接口
-      console.log(res);
+      await fetchAddRole(res);
     } else {
       // edit request 调用编辑的接口
-      console.log(res);
+      await fetchEditRole(res);
     }
   });
 
   async function handleBatchDelete() {
-    // request
-    console.log(checkedRowKeys);
-    onBatchDeleted();
+    // 删除角色
+    await fetchDeleteRole(checkedRowKeys);
+    await onBatchDeleted();
   }
 
-  function handleDelete(id: number) {
-    // request
-    console.log(id);
-
-    onDeleted();
+  async function handleDelete(id: number) {
+    // 删除角色
+    await fetchDeleteRole([id]);
+    await onDeleted();
   }
 
   function edit(id: number) {
@@ -159,7 +161,7 @@ const Role = () => {
       />
 
       <ACard
-        className="flex-col-stretch sm:flex-1-hidden card-wrapper"
+        className="flex-col-stretch card-wrapper sm:flex-1-hidden"
         ref={tableWrapperRef}
         title={t('page.manage.role.title')}
         variant="borderless"

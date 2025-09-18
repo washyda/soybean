@@ -13,8 +13,6 @@ export function getAuthorization() {
 
 /**
  * refresh token
- *
- * @param axiosConfig - request config when the token is expired
  */
 export async function handleRefreshToken() {
   const refreshToken = localStg.get('refreshToken') || '';

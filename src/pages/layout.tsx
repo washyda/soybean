@@ -19,7 +19,16 @@ function handleRouteSwitch(to: Router.Route, from: Router.Route | null) {
 }
 
 // eslint-disable-next-line max-params
-function createRouteGuard(to: Router.Route, roles: string[], isSuper: boolean, previousRoute: Router.Route | null) {
+function createRouteGuard(
+  to: Router.Route,
+  roles: Array<{
+    roleCode: string;
+    roleId: number;
+    roleName: string;
+  }>,
+  isSuper: boolean,
+  previousRoute: Router.Route | null
+) {
   const loginRoute: RoutePath = '/login';
   const isLogin = Boolean(localStg.get('token'));
 
@@ -36,9 +45,7 @@ function createRouteGuard(to: Router.Route, roles: string[], isSuper: boolean, p
 
     const query = to.fullPath;
 
-    const location = `${loginRoute}?redirect=${query}`;
-
-    return location;
+    return `${loginRoute}?redirect=${query}`;
   }
 
   const rootRoute: RoutePath = '/';
@@ -47,7 +54,7 @@ function createRouteGuard(to: Router.Route, roles: string[], isSuper: boolean, p
   const needLogin = !to.handle.constant;
   const routeRoles = to.handle.roles || [];
 
-  const hasRole = roles.some(role => routeRoles.includes(role));
+  const hasRole = roles.some(role => routeRoles.includes(role.roleCode));
 
   const hasAuth = isSuper || !routeRoles.length || hasRole;
 
@@ -129,10 +136,7 @@ export const loader = () => {
 };
 
 export const shouldRevalidate = ({ currentUrl, nextUrl }: ShouldRevalidateFunctionArgs) => {
-  if (currentUrl.pathname === nextUrl.pathname) {
-    return false;
-  }
-  return true;
+  return currentUrl.pathname !== nextUrl.pathname;
 };
 
 export default RootLayout;

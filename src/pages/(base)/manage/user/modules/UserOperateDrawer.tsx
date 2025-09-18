@@ -8,20 +8,17 @@ import { fetchGetAllRoles } from '@/service/api';
 
 interface OptionsProps {
   label: string;
-  value: string;
+  value: number;
 }
 
-type Model = Pick<
-  Api.SystemManage.User,
-  'nickName' | 'status' | 'userEmail' | 'userGender' | 'userName' | 'userPhone' | 'userRoles'
->;
+type Model = Pick<Api.SystemManage.User, 'email' | 'gender' | 'nickname' | 'phone' | 'roles' | 'status' | 'username'>;
 
-type RuleKey = Extract<keyof Model, 'status' | 'userName'>;
+type RuleKey = Extract<keyof Model, 'status' | 'username'>;
 
 function getOptions(item: Api.SystemManage.AllRole) {
   return {
     label: item.roleName,
-    value: item.roleCode
+    value: item.id
   };
 }
 
@@ -38,7 +35,7 @@ const UserOperateDrawer: FC<Page.OperateDrawerProps> = ({ form, handleSubmit, on
 
   const rules: Record<RuleKey, App.Global.FormRule> = {
     status: defaultRequiredRule,
-    userName: defaultRequiredRule
+    username: defaultRequiredRule
   };
 
   useUpdateEffect(() => {
@@ -70,15 +67,15 @@ const UserOperateDrawer: FC<Page.OperateDrawerProps> = ({ form, handleSubmit, on
       >
         <Form.Item
           label={t('page.manage.user.userName')}
-          name="userName"
-          rules={[rules.userName]}
+          name="username"
+          rules={[rules.username]}
         >
           <Input placeholder={t('page.manage.user.form.userName')} />
         </Form.Item>
 
         <Form.Item
           label={t('page.manage.user.userGender')}
-          name="userGender"
+          name="gender"
         >
           <Radio.Group>
             {userGenderOptions.map(item => (
@@ -94,14 +91,14 @@ const UserOperateDrawer: FC<Page.OperateDrawerProps> = ({ form, handleSubmit, on
 
         <Form.Item
           label={t('page.manage.user.nickName')}
-          name="nickName"
+          name="nickname"
         >
           <Input placeholder={t('page.manage.user.form.nickName')} />
         </Form.Item>
 
         <Form.Item
           label={t('page.manage.user.userPhone')}
-          name="userPhone"
+          name="phone"
         >
           <Input placeholder={t('page.manage.user.form.userPhone')} />
         </Form.Item>
@@ -132,9 +129,10 @@ const UserOperateDrawer: FC<Page.OperateDrawerProps> = ({ form, handleSubmit, on
 
         <Form.Item
           label={t('page.manage.user.userRole')}
-          name="roles"
+          name="roleIds"
         >
           <Select
+            mode="multiple"
             options={roleOptions}
             placeholder={t('page.manage.user.form.userRole')}
           />

@@ -6,9 +6,9 @@ import MenuAuthModal from './menu-auth-modal';
 
 type Props = Page.OperateDrawerProps & { rowId: number };
 
-type Model = Pick<Api.SystemManage.Role, 'roleCode' | 'roleDesc' | 'roleName' | 'status'>;
+type Model = Pick<Api.SystemManage.Role, 'description' | 'roleCode' | 'roleName' | 'status'>;
 
-type RuleKey = Exclude<keyof Model, 'roleDesc'>;
+type RuleKey = Exclude<keyof Model, 'description'>;
 
 const RoleOperateDrawer: FC<Props> = memo(({ form, handleSubmit, onClose, open, operateType, rowId }) => {
   const { t } = useTranslation();
@@ -81,7 +81,7 @@ const RoleOperateDrawer: FC<Props> = memo(({ form, handleSubmit, onClose, open, 
 
         <AForm.Item
           label={t('page.manage.role.roleDesc')}
-          name="roleDesc"
+          name="description"
         >
           <AInput placeholder={t('page.manage.role.form.roleDesc')} />
         </AForm.Item>

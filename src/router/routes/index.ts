@@ -6,7 +6,7 @@ import { transformElegantRoutesToReactRoutes } from '../elegant/transform';
 /**
  * Get auth react routes
  *
- * @param routes Elegant routes
+ * @param route Elegant routes
  */
 export function getReactRoutes(route: ElegantConstRoute[]) {
   return transformElegantRoutesToReactRoutes(route);
@@ -21,10 +21,12 @@ function isGroup(id?: string) {
 /**
  * 过滤路由并收集需要权限的路由
  *
- * @param {Array} routes - 当前路由数组
- * @param {Object | null} parent - 当前节点的父路由，根节点时为 null
- * @param {Array} authRoutes - 用于记录需要权限的路由和对应父级的数组
- * @returns {Array} 返回过滤后的路由数组
+ * @param routes - 当前路由数组
+ * @param parent - 当前节点的父路由，根节点时为 null
+ * @param authRoutes - 用于记录需要权限的路由和对应父级的数组
+ * @param cacheRoutes
+ * @param parentPath
+ * @returns 返回过滤后的路由数组
  */
 // eslint-disable-next-line max-params
 export function filterRoutes(
@@ -54,7 +56,7 @@ export function filterRoutes(
     if (!noPermission) {
       // 将当前路由及其父级（如果没有父级，则为 null）记录到 authRoutes 数组中
       if (isRouteGroup || newRoute.children?.[0]?.index) {
-        const children = newRoute.children
+        newRoute.children = newRoute.children
           ?.map(item => {
             if (item.handle?.constant || isGroup(item.id) || item.children?.[0]?.index) {
               return item;
@@ -62,8 +64,6 @@ export function filterRoutes(
             return null;
           })
           .filter(Boolean) as RouteObject[];
-
-        newRoute.children = children;
 
         acc.push(newRoute);
       } else {

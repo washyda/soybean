@@ -58,7 +58,7 @@ const ToggleAuth = () => {
       children: (
         <ASpace>
           {userInfo.roles.map(role => (
-            <ATag key={role}>{role}</ATag>
+            <ATag key={role.roleId}>{role.roleName}</ATag>
           ))}
         </ASpace>
       ),

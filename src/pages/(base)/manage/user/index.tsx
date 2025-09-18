@@ -3,15 +3,16 @@ import { Suspense, lazy } from 'react';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { ATG_MAP } from '@/constants/common';
 import { TableHeaderOperation, useTable, useTableOperate, useTableScroll } from '@/features/table';
-import { fetchGetUserList } from '@/service/api';
+import { fetchCreateUser, fetchDeleteUser, fetchGetUserList, fetchUpdateUser } from '@/service/api';
 
 import UserSearch from './modules/UserSearch';
 
 const UserOperateDrawer = lazy(() => import('./modules/UserOperateDrawer'));
 
 const tagUserGenderMap: Record<Api.SystemManage.UserGender, string> = {
-  1: 'processing',
-  2: 'error'
+  1: 'default',
+  2: 'processing',
+  3: 'error'
 };
 
 const UserManage = () => {
@@ -28,65 +29,60 @@ const UserManage = () => {
       apiFn: fetchGetUserList,
       apiParams: {
         current: 1,
-        nickName: null,
+        email: null,
+        gender: null,
+        nickname: null,
+        phone: null,
+        querySearch: null,
         size: 10,
         // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
         // the value can not be undefined, otherwise the property in Form will not be reactive
-        status: null,
-        userEmail: null,
-        userGender: null,
-        userName: null,
-        userPhone: null
+        status: null
       },
       columns: () => [
         {
           align: 'center',
-          dataIndex: 'index',
-          key: 'index',
+          dataIndex: 'id',
+          key: 'id',
           title: t('common.index'),
           width: 64
         },
         {
           align: 'center',
-          dataIndex: 'userName',
-          key: 'userName',
+          dataIndex: 'username',
+          key: 'username',
           minWidth: 100,
           title: t('page.manage.user.userName')
         },
         {
           align: 'center',
-          dataIndex: 'userGender',
-          key: 'userGender',
+          dataIndex: 'gender',
+          key: 'gender',
           render: (_, record) => {
-            if (record?.userGender === null) {
-              return null;
-            }
-
-            const label = t(userGenderRecord[record.userGender]);
-
-            return <ATag color={tagUserGenderMap[record.userGender]}>{label}</ATag>;
+            const label = t(userGenderRecord[record.gender]);
+            return <ATag color={tagUserGenderMap[record.gender]}>{label}</ATag>;
           },
           title: t('page.manage.user.userGender'),
           width: 100
         },
         {
           align: 'center',
-          dataIndex: 'nickName',
-          key: 'nickName',
+          dataIndex: 'nickname',
+          key: 'nickname',
           minWidth: 100,
           title: t('page.manage.user.nickName')
         },
         {
           align: 'center',
-          dataIndex: 'userPhone',
-          key: 'userPhone',
+          dataIndex: 'phone',
+          key: 'phone',
           title: t('page.manage.user.userPhone'),
           width: 120
         },
         {
           align: 'center',
-          dataIndex: 'userEmail',
-          key: 'userEmail',
+          dataIndex: 'email',
+          key: 'email',
           minWidth: 200,
           title: t('page.manage.user.userEmail')
         },
@@ -95,9 +91,6 @@ const UserManage = () => {
           dataIndex: 'status',
           key: 'status',
           render: (_, record) => {
-            if (record.status === null) {
-              return null;
-            }
             const label = t(enableStatusRecord[record.status]);
             return <ATag color={ATG_MAP[record.status]}>{label}</ATag>;
           },
@@ -148,24 +141,23 @@ const UserManage = () => {
     useTableOperate(data, run, async (res, type) => {
       if (type === 'add') {
         // add request 调用新增的接口
-        console.log(res);
+        await fetchCreateUser(res);
       } else {
         // edit request 调用编辑的接口
-        console.log(res);
+        await fetchUpdateUser(res);
       }
     });
 
   async function handleBatchDelete() {
-    // request
-    console.log(checkedRowKeys);
-    onBatchDeleted();
+    // 删除
+    await fetchDeleteUser(checkedRowKeys);
+    await onBatchDeleted();
   }
 
-  function handleDelete(id: number) {
-    // request
-    console.log(id);
-
-    onDeleted();
+  async function handleDelete(id: number) {
+    // 删除
+    await fetchDeleteUser([id]);
+    await onDeleted();
   }
 
   function edit(id: number) {
@@ -187,7 +179,7 @@ const UserManage = () => {
       />
 
       <ACard
-        className="flex-col-stretch sm:flex-1-hidden card-wrapper"
+        className="flex-col-stretch card-wrapper sm:flex-1-hidden"
         ref={tableWrapperRef}
         title={t('page.manage.user.title')}
         variant="borderless"

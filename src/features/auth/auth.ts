@@ -74,7 +74,7 @@ export function useInitAuth() {
         }
 
         window.$notification?.success({
-          description: t('page.login.common.welcomeBack', { userName: info.userName }),
+          description: t('page.login.common.welcomeBack', { nickname: info.nickname }),
           message: t('page.login.common.loginSuccess')
         });
       }

@@ -1,10 +1,11 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import type { Action, ThunkAction } from '@reduxjs/toolkit';
 
+import { themeSlice } from '@/features/theme';
+
 import { authSlice } from '../features/auth/authStore';
 import { routeSlice } from '../features/router/routeStore';
 import { tabSlice } from '../features/tab/tabStore';
-import { themeSlice } from '../features/theme';
 import { appSlice } from '../layouts/appStore';
 
 // `combineSlices` automatically combines the reducers using

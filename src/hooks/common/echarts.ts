@@ -153,7 +153,10 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     if (!isRendered()) {
       const chartTheme = darkMode ? 'dark' : 'light';
 
-      chart.current = echarts.init(domRef.current, chartTheme);
+      chart.current = echarts.init(domRef.current, chartTheme, {
+        devicePixelRatio: window.devicePixelRatio,
+        useDirtyRect: true
+      });
 
       chart.current.setOption({ ...chartOptions.current, backgroundColor: 'transparent' });
 

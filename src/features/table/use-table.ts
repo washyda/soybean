@@ -1,6 +1,7 @@
 import { useBoolean, useHookTable } from '@sa/hooks';
 import type { TablePaginationConfig, TableProps } from 'antd';
 import { Form } from 'antd';
+import type React from 'react';
 
 import { parseQuery } from '@/features/router/query';
 import { getIsMobile } from '@/layouts/appStore';
@@ -226,7 +227,11 @@ export function useTableOperate<T extends TableData = TableData>(
   }
 
   async function handleSubmit() {
-    const res = await form.validateFields();
+    let res = await form.validateFields();
+
+    if (operateType === 'edit') {
+      res = { ...res, id: editingData?.id };
+    }
 
     // request
     await executeResActions(res, operateType);

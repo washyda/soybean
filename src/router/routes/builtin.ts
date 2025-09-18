@@ -23,6 +23,7 @@ export const BaseChildrenRoutes = [
     children: [
       {
         handle: {
+          hideInMenu: true,
           i18nKey: 'route.exception_403',
           icon: 'ic:baseline-block',
           title: 'exception_403'
@@ -33,6 +34,7 @@ export const BaseChildrenRoutes = [
       },
       {
         handle: {
+          hideInMenu: true,
           i18nKey: 'route.exception_404',
           icon: 'ic:baseline-web-asset-off',
           title: 'exception_404'
@@ -43,6 +45,7 @@ export const BaseChildrenRoutes = [
       },
       {
         handle: {
+          hideInMenu: true,
           i18nKey: 'route.exception_500',
           icon: 'ic:baseline-wifi-off',
           title: 'exception_500'
@@ -53,6 +56,7 @@ export const BaseChildrenRoutes = [
       }
     ],
     handle: {
+      hideInMenu: true,
       i18nKey: 'route.exception',
       icon: 'ant-design:exception-outlined',
       order: 4,

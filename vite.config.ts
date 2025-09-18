@@ -47,7 +47,7 @@ export default defineConfig(configEnv => {
                 // 提取文件的父文件夹作为文件名
                 const pageName = filePath.split('/src/pages/')[1];
                 // 替换 [name] 为  name 因为vite不支持
-                const newPath = pageName.replace(/\[([^\]]+)\]/g, '$1');
+                const newPath = pageName.replace(/\[([^\]]+)]/g, '$1');
 
                 const path = newPath.slice(0, newPath.lastIndexOf('/'));
 

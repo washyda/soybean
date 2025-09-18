@@ -27,7 +27,10 @@ export async function initAuthRoutes(addRoutes: (parent: string | null, route: R
       });
     } else {
       // 非超级管理员
-      const filteredRoutes = filterAuthRoutesByRoles(reactAuthRoutes, roles);
+      const filteredRoutes = filterAuthRoutesByRoles(
+        reactAuthRoutes,
+        roles.map(role => role.roleCode)
+      );
 
       filteredRoutes.forEach(({ parent, route }) => {
         addRoutes(parent, route);

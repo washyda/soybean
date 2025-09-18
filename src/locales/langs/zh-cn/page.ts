@@ -56,7 +56,7 @@ const page: App.I18n.Schema['translation']['page'] = {
     dealCount: '成交量',
     downloadCount: '下载量',
     entertainment: '娱乐',
-    greeting: '早安，{{userName}}, 今天又是充满活力的一天!',
+    greeting: '早安，{{nickname}}, 今天又是充满活力的一天!',
     message: '消息',
     projectCount: '项目数',
     projectNews: {
@@ -101,7 +101,7 @@ const page: App.I18n.Schema['translation']['page'] = {
       phonePlaceholder: '请输入手机号',
       userNamePlaceholder: '请输入用户名',
       validateSuccess: '验证成功',
-      welcomeBack: '欢迎回来，{{userName}} ！'
+      welcomeBack: '欢迎回来，{{nickname}} ！'
     },
     pwdLogin: {
       admin: '管理员',
@@ -206,12 +206,14 @@ const page: App.I18n.Schema['translation']['page'] = {
       buttonAuth: '按钮权限',
       editRole: '编辑角色',
       form: {
+        querySearch: '请输入角色名称或编码',
         roleCode: '请输入角色编码',
         roleDesc: '请输入角色描述',
         roleName: '请输入角色名称',
         roleStatus: '请选择角色状态'
       },
       menuAuth: '菜单权限',
+      querySearch: '角色',
       roleCode: '角色编码',
       roleDesc: '角色描述',
       roleName: '角色名称',
@@ -228,6 +230,7 @@ const page: App.I18n.Schema['translation']['page'] = {
       editUser: '编辑用户',
       form: {
         nickName: '请输入昵称',
+        querySearch: '请输入用户名或昵称',
         userEmail: '请输入邮箱',
         userGender: '请选择性别',
         userName: '请输入用户名',
@@ -237,9 +240,11 @@ const page: App.I18n.Schema['translation']['page'] = {
       },
       gender: {
         female: '女',
-        male: '男'
+        male: '男',
+        unknown: '未知'
       },
       nickName: '昵称',
+      querySearch: '名称',
       title: '用户列表',
       userEmail: '邮箱',
       userGender: '性别',

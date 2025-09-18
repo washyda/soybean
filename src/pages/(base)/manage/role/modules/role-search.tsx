@@ -24,23 +24,10 @@ const RoleSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
         >
           <AForm.Item
             className="m-0"
-            label={t('page.manage.role.roleName')}
-            name="roleName"
+            label={t('page.manage.role.querySearch')}
+            name="querySearch"
           >
-            <AInput placeholder={t('page.manage.role.form.roleName')} />
-          </AForm.Item>
-        </ACol>
-        <ACol
-          lg={6}
-          md={12}
-          span={24}
-        >
-          <AForm.Item
-            className="m-0"
-            label={t('page.manage.role.roleCode')}
-            name="roleCode"
-          >
-            <AInput placeholder={t('page.manage.role.form.roleCode')} />
+            <AInput placeholder={t('page.manage.role.form.querySearch')} />
           </AForm.Item>
         </ACol>
 
@@ -57,13 +44,13 @@ const RoleSearch: FC<Page.SearchProps> = memo(({ form, reset, search, searchPara
             <ASelect
               allowClear
               options={translateOptions(enableStatusOptions)}
-              placeholder={t('page.manage.user.form.userGender')}
+              placeholder={t('page.manage.role.form.roleStatus')}
             />
           </AForm.Item>
         </ACol>
 
         <ACol
-          lg={6}
+          lg={12}
           md={12}
           span={24}
         >

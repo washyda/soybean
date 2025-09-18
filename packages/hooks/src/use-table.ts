@@ -138,7 +138,6 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
     columns,
     data: data.data,
     empty,
-    getData,
     loading,
     pageNum: data.pageNum,
     pageSize: data.pageSize,

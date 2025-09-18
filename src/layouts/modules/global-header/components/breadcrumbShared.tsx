@@ -1,18 +1,10 @@
 import type { BreadcrumbProps } from 'antd';
 import type { ReactElement } from 'react';
-import { cloneElement } from 'react';
 import { Link, matchPath } from 'react-router-dom';
 
-type BreadcrumbItem = Required<BreadcrumbProps>['items'][number];
+import BreadcrumbContent from './BreadcrumbContent';
 
-function BreadcrumbContent({ icon, label }: { readonly icon: ReactElement; readonly label: ReactElement }) {
-  return (
-    <div className="i-flex-y-center align-middle">
-      {cloneElement(icon, { className: 'mr-4px text-icon' } as any)}
-      {label}
-    </div>
-  );
-}
+type BreadcrumbItem = Required<BreadcrumbProps>['items'][number];
 
 /**
  * 通过 index 获取 pathname 的前缀路径
@@ -45,16 +37,19 @@ export function getBreadcrumbsByRoute(route: Router.Route, menus: App.Global.Men
 
     const prefixPath = getPathnameByIndex(pathname, i);
 
+    const hasChildren = Array.isArray(currentMenu.children) && currentMenu.children.length > 0;
+
     const breadcrumbItem: BreadcrumbItem = {
       title: (
         <BreadcrumbContent
+          hasChildren={hasChildren}
           icon={currentMenu.icon as ReactElement}
           label={currentMenu.label as ReactElement}
         />
       )
     };
 
-    if (Array.isArray(currentMenu.children) && currentMenu.children.length > 0) {
+    if (hasChildren) {
       // eslint-disable-next-line no-loop-func
       const flattenedChildren = currentMenu.children?.map(child => {
         const isMatch = matchPath(child.key, prefixPath);

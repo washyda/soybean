@@ -56,7 +56,7 @@ const page: App.I18n.Schema['translation']['page'] = {
     dealCount: 'Deal Count',
     downloadCount: 'Download Count',
     entertainment: 'Entertainment',
-    greeting: 'Good morning, {{userName}}, today is another day full of vitality!',
+    greeting: 'Good morning, {{nickname}}, today is another day full of vitality!',
     message: 'Message',
     projectCount: 'Project Count',
     projectNews: {
@@ -101,7 +101,7 @@ const page: App.I18n.Schema['translation']['page'] = {
       phonePlaceholder: 'Please enter phone number',
       userNamePlaceholder: 'Please enter user name',
       validateSuccess: 'Verification passed',
-      welcomeBack: 'Welcome back, {{userName}} !'
+      welcomeBack: 'Welcome back, {{nickname}} !'
     },
     pwdLogin: {
       admin: 'Admin',
@@ -206,12 +206,14 @@ const page: App.I18n.Schema['translation']['page'] = {
       buttonAuth: 'Button Auth',
       editRole: 'Edit Role',
       form: {
+        querySearch: 'Please enter role name or role code',
         roleCode: 'Please enter role code',
         roleDesc: 'Please enter role description',
         roleName: 'Please enter role name',
         roleStatus: 'Please select role status'
       },
       menuAuth: 'Menu Auth',
+      querySearch: 'Role',
       roleCode: 'Role Code',
       roleDesc: 'Role Description',
       roleName: 'Role Name',
@@ -228,18 +230,21 @@ const page: App.I18n.Schema['translation']['page'] = {
       editUser: 'Edit User',
       form: {
         nickName: 'Please enter nick name',
+        querySearch: 'Please enter a username or nickname',
         userEmail: 'Please enter email',
         userGender: 'Please select gender',
-        userName: 'Please enter user name',
+        userName: 'Please enter username',
         userPhone: 'Please enter phone number',
         userRole: 'Please select user role',
         userStatus: 'Please select user status'
       },
       gender: {
         female: 'Female',
-        male: 'Male'
+        male: 'Male',
+        unknown: 'Unknown'
       },
       nickName: 'Nick Name',
+      querySearch: 'NAME',
       title: 'User List',
       userEmail: 'Email',
       userGender: 'Gender',

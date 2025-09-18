@@ -3,7 +3,7 @@ import { request } from '../request';
 /**
  * Login
  *
- * @param username User name
+ * @param username UserName
  * @param password Password
  */
 export function fetchLogin(username: string, password: string) {
@@ -33,16 +33,6 @@ export function fetchRefreshToken(refreshToken: string) {
       refreshToken
     },
     method: 'post',
-    url: '/auth/refreshToken'
+    url: '/user/refresh_token'
   });
-}
-
-/**
- * return custom backend error
- *
- * @param code error code
- * @param msg error message
- */
-export function fetchCustomBackendError(code: string, msg: string) {
-  return request({ params: { code, msg }, url: '/auth/error' });
 }

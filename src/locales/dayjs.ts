@@ -6,8 +6,6 @@ import { globalConfig } from '@/config';
 
 /**
  * Set dayjs locale
- *
- * @param lang
  */
 export function setDayjsLocale() {
   const localMap = {

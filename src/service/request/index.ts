@@ -1,4 +1,5 @@
 import { BACKEND_ERROR_CODE, createFlatRequest, createRequest } from '@sa/axios';
+import type { AxiosResponse } from 'axios';
 
 import { globalConfig } from '@/config';
 import { localStg } from '@/utils/storage';
@@ -20,8 +21,8 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
       return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
-    async onBackendFail(response, instance) {
-      await backEndFail(response, instance, request);
+    async onBackendFail(response, instance): Promise<AxiosResponse | null> {
+      return await backEndFail(response, instance, request);
     },
     onError(error) {
       handleError(error, request);

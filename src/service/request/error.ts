@@ -10,10 +10,10 @@ import type { RequestInstanceState } from './type';
 
 /** - 后端错误处理 */
 export async function backEndFail(
-  response: AxiosResponse<App.Service.Response<unknown>, any>,
+  response: AxiosResponse<App.Service.Response, any>,
   instance: AxiosInstance,
-  request: FlatRequestInstance<RequestInstanceState, App.Service.Response<unknown>>
-) {
+  request: FlatRequestInstance<RequestInstanceState, App.Service.Response>
+): Promise<AxiosResponse | null> {
   const responseCode = String(response.data.code);
 
   function handleLogout() {
@@ -47,9 +47,6 @@ export async function backEndFail(
       keyboard: false,
       maskClosable: false,
       okText: $t('common.confirm'),
-      onClose() {
-        logoutAndCleanup();
-      },
       onOk() {
         logoutAndCleanup();
       },
@@ -70,7 +67,7 @@ export async function backEndFail(
       const Authorization = getAuthorization();
       Object.assign(response.config.headers, { Authorization });
 
-      return instance.request(response.config) as Promise<AxiosResponse>;
+      return await instance.request(response.config);
     }
   }
 
@@ -79,8 +76,8 @@ export async function backEndFail(
 
 /** - 网络错误处理 */
 export function handleError(
-  error: AxiosError<App.Service.Response<unknown>, any>,
-  request: FlatRequestInstance<RequestInstanceState, App.Service.Response<unknown>>
+  error: AxiosError<App.Service.Response, any>,
+  request: FlatRequestInstance<RequestInstanceState, App.Service.Response>
 ) {
   // when the request is fail, you can show error message
 
